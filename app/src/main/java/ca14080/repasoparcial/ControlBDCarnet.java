@@ -139,7 +139,41 @@ public String actualizar(Alumno alumno){
 }
 
 //********************************************CRUD MATERIA***************************************************************
+public String insertar (Materia materia){
+    String regInsertados ="Registro Insertado N = ";
+    long contador = 0;
 
+    ContentValues mate = new ContentValues();
+    mate.put("codmateria",materia.getCodmateria());
+    mate.put("nommateria",materia.getNommateria());
+    mate.put("unidadesval",materia.getUnidadesval());
+    contador=db.insert("materia",null,mate);
+
+    if(contador==-1 || contador==0){
+        regInsertados="ERROR AL INSERTAR REGISTRO";
+
+    }else{
+        regInsertados=regInsertados+contador;
+    }
+    return regInsertados;
+}
+
+public Materia consultarMateria(String codigoMat){
+
+    String[] id={codigoMat};
+
+    Cursor cursor = db.query("materia",camposMateria,"codmateria = ?",id,null,null,null);
+    if(cursor.moveToFirst()){
+    Materia materia = new Materia();
+    materia.setCodmateria(cursor.getString(0));
+    materia.setNommateria(cursor.getString(1));
+    materia.setUnidadesval(cursor.getString(2));
+    return materia;
+    }else{
+        return null;
+    }
+
+}
 
 
 //********************************************CRUD NOTA******************************************************************

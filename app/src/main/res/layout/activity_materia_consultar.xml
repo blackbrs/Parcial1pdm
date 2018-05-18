@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context="ca14080.repasoparcial.MateriaConsultarActivity">
 
     <TextView
@@ -15,4 +17,42 @@
         android:text="Consultar Materia"
         tools:layout_editor_absoluteX="137dp"
         tools:layout_editor_absoluteY="0dp" />
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Codigo materia"
+        android:paddingTop="15dp"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtCodmateria"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="consultarMateria"
+        android:text="Consultar Materia" />
+    <TextView
+        android:paddingTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la materia"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:enabled="false"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNombremat"/>
+    <TextView
+        android:paddingTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unidades valorativas"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:enabled="false"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtUnidadesval"
+        android:inputType="number"/>
+</LinearLayout>

@@ -49,10 +49,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/edtUnidadesval"
         android:inputType="number"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Materias"/>
+        android:onClick="InsertarMateria"
+        android:text="Agregar Materias" />
 
 
 </LinearLayout>
