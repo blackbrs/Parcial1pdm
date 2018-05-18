@@ -123,7 +123,20 @@ public class ControlBDCarnet {
 
     }
 
+public String actualizar(Alumno alumno){
+    if(verificarIntegridad(alumno,5)){
+         String[]id={alumno.getCarnet()};
+         ContentValues cv = new ContentValues();
+         cv.put("nombre",alumno.getNombre());
+         cv.put("apellido",alumno.getApellido());
+         cv.put("sexo",alumno.getSexo());
+         db.update("alumno",cv,"carnet = ?",id);
+         return  "Registro Actualizado Correctamente";
+    }else{
+        return "Registro con carnet"+alumno.getCarnet()+"NO EXISTE";
+    }
 
+}
 
 //********************************************CRUD MATERIA***************************************************************
 
