@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca14080.repasoparcial.NotaModificarActivity">
+    tools:context="ca14080.repasoparcial.NotaModificarActivity"
+    android:paddingTop="10dip"
+    android:stretchColumns="1">
+    <TableRow>
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Modificar Nota"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="16dp" />
-</RelativeLayout>
+        <TextView android:text="carnet" />
+
+        <EditText
+            android:id="@+id/editCarnet"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="codigo matnota" />
+
+        <EditText
+            android:id="@+id/editCodigo"
+            android:inputType="text"
+            android:maxLength="6" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="ciclo" />
+
+        <EditText
+            android:id="@+id/editCiclo"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="nota final" />
+
+        <EditText
+            android:id="@+id/editNota"
+            android:inputType="numberDecimal" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarNota"
+            android:text="actualizar" />
+    </TableRow>
+
+
+
+</TableLayout>

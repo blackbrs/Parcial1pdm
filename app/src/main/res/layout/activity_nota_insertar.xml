@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca14080.repasoparcial.NotaInsertarActivity">
+    tools:context="ca14080.repasoparcial.NotaInsertarActivity"
+    android:paddingTop="10dip"
+    android:stretchColumns="1">
 
     <TextView
         android:id="@+id/textView11"
@@ -15,4 +17,48 @@
         android:text="Insertar Nota"
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="0dp" />
-</RelativeLayout>
+
+    <TableRow>
+        <TextView android:text="carnet"/>
+        <EditText
+            android:id="@+id/editCar"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="codmateria" />
+        <EditText
+            android:id="@+id/editCod"
+            android:inputType="text"
+            android:maxLength="6" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="ciclo" />
+        <EditText
+            android:id="@+id/editCiclo"
+            android:inputType="number"
+            android:maxLength="5" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="notafinal" />
+        <EditText
+            android:id="@+id/editNotafinal"
+            android:inputType="text"
+            android:maxLength="4" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="opciones" />
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:onClick="insertarNota"
+            android:text="insertar" />
+
+    </TableRow>
+
+</TableLayout>

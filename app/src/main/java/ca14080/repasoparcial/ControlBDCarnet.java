@@ -123,7 +123,7 @@ public class ControlBDCarnet {
 
     }
 
-public String actualizar(Alumno alumno){
+    public String actualizar(Alumno alumno){
     if(verificarIntegridad(alumno,5)){
          String[]id={alumno.getCarnet()};
          ContentValues cv = new ContentValues();
@@ -139,7 +139,7 @@ public String actualizar(Alumno alumno){
 }
 
 //********************************************CRUD MATERIA***************************************************************
-public String insertar (Materia materia){
+    public String insertar (Materia materia){
     String regInsertados ="Registro Insertado N = ";
     long contador = 0;
 
@@ -158,7 +158,7 @@ public String insertar (Materia materia){
     return regInsertados;
 }
 
-public Materia consultarMateria(String codigoMat){
+    public Materia consultarMateria(String codigoMat){
 
     String[] id={codigoMat};
 
@@ -175,9 +175,102 @@ public Materia consultarMateria(String codigoMat){
 
 }
 
+    public String eliminarMateria(Materia materia){
+    String regAfectados="filas afectadas= ";
+    int contador=0;
+    if (verificarIntegridad(materia,4)) {
+        contador+=db.delete("nota", "codmateria='"+materia.getCodmateria()+"'", null);
+    }
+    contador+=db.delete("materia", "codmateria='"+materia.getCodmateria() + "'", null);
+    regAfectados += contador;
+    return regAfectados;
+}
+
+    public String actualizarMateria(Materia materia){
+        if(verificarIntegridad(materia, 6)){
+            String[] id = {materia.getCodmateria()};
+            ContentValues cv = new ContentValues();
+            cv.put("nommateria", materia.getNommateria());
+            cv.put("unidadesval", materia.getUnidadesval());
+            db.update("materia", cv, "codmateria = ?", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro con carnet " + materia.getCodmateria() + " no existe";
+        }
+
+    }
 
 //********************************************CRUD NOTA******************************************************************
+    public String insertar(Nota nota){
 
+    String regInsertados="Registro Insertado Nº= ";
+    long contador=0;
+    if(verificarIntegridad(nota,1))
+    {
+        ContentValues notas = new ContentValues();
+        notas.put("carnet", nota.getCarnet());
+        notas.put("codmateria", nota.getCodamateria());
+        notas.put("ciclo", nota.getCiclo());
+        notas.put("notafinal", nota.getNotafinal());
+        contador=db.insert("nota", null, notas);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+    }
+    else
+    {
+        regInsertados= "Error al Insertar el registro, No Existe Alumno o Materia. Verificar ";
+    }
+
+
+    return regInsertados;
+
+}
+    public String eliminarNot(Nota nota){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        String where="carnet='"+nota.getCarnet()+"'";
+        where=where+" AND codmateria='"+nota.getCodamateria()+"'";
+        where=where+" AND ciclo="+nota.getCiclo();
+        contador+=db.delete("nota", where, null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public Nota consultarNota(String carnet, String codmateria, String ciclo){
+
+        String[] id = {carnet, codmateria, ciclo};
+        Cursor cursor = db.query("nota", camposNota, "carnet = ? AND codmateria = ? AND ciclo = ?", id, null, null, null);
+        if(cursor.moveToFirst()){
+            Nota nota = new Nota();
+            nota.setCarnet(cursor.getString(0));
+            nota.setCodamateria(cursor.getString(1));
+            nota.setCiclo(cursor.getString(2));
+            nota.setNotafinal(cursor.getDouble(3));
+            return nota;
+        }else{
+            return null;
+        }
+    }
+
+
+    public String actualizar(Nota nota){
+
+        if(verificarIntegridad(nota, 2)){
+            String[] id = {nota.getCodamateria(), nota.getCarnet(), nota.getCiclo()};
+            ContentValues cv = new ContentValues();
+            cv.put("notafinal", nota.getNotafinal());
+            db.update("nota", cv, "codmateria = ? AND carnet = ? AND ciclo = ?", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro no Existe";
+        }
+
+
+    }
 //********************************************VERIFICADOR DE INTEGRIDAD**************************************************
 private boolean verificarIntegridad(Object dato, int relacion) throws SQLException{
 
@@ -185,11 +278,32 @@ private boolean verificarIntegridad(Object dato, int relacion) throws SQLExcepti
 
         case 1:
         {
+            //verificar que al insertar nota exista carnet del alumno y el codigo de materia
+            Nota nota = (Nota)dato;
+            String[] id1 = {nota.getCarnet()};
+            String[] id2 = {nota.getCodamateria()};
+            Cursor cursor1 = db.query("alumno", null, "carnet = ?", id1, null, null, null);
+            Cursor cursor2 = db.query("materia", null, "codmateria = ?", id2, null, null, null);
+            if(cursor1.moveToFirst() && cursor2.moveToFirst()){
+                //Se encontraron datos
+                return true;
+            }
+            return false;
 
         }
 
         case 2:
         {
+            //verificar que al modificar nota exista carnet del alumno, el codigo de materia y el ciclo
+            Nota nota1 = (Nota)dato;
+            String[] ids = {nota1.getCarnet(), nota1.getCodamateria(), nota1.getCiclo()};
+            abrir();
+            Cursor c = db.query("nota", null, "carnet = ? AND codmateria = ? AND ciclo = ?", ids, null, null, null);
+            if(c.moveToFirst()){
+                //Se encontraron datos
+                return true;
+            }
+            return false;
         }
 
         case 3:
@@ -205,9 +319,14 @@ private boolean verificarIntegridad(Object dato, int relacion) throws SQLExcepti
 
         }
 
-        case 4:
-        {
+        case 4: {
 
+            Materia materia = (Materia)dato;
+            Cursor cmat=db.query(true, "nota", new String[] {"codmateria" }, "codmateria='"+materia.getCodmateria()+"'",null, null, null, null, null);
+            if(cmat.moveToFirst())
+                return true;
+            else
+                return false;
         }
 
         case 5:
@@ -224,6 +343,15 @@ private boolean verificarIntegridad(Object dato, int relacion) throws SQLExcepti
 
         case 6:
         {
+            Materia materia2 = (Materia)dato;
+            String[] idm = {materia2.getCodmateria()};
+            abrir();
+            Cursor cm = db.query("materia", null, "codmateria = ?", idm, null, null, null);
+            if(cm.moveToFirst()){
+                //Se encontro Materia
+                return true;
+            }
+            return false;
 
         }
 

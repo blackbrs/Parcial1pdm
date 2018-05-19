@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca14080.repasoparcial.MateriaModificarActivity">
+    tools:context="ca14080.repasoparcial.MateriaModificarActivity"
+    android:paddingTop="10dip"
+    android:stretchColumns="1">
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:text="Modificar Materia"
         tools:layout_editor_absoluteX="137dp"
         tools:layout_editor_absoluteY="1dp" />
-</RelativeLayout>
+
+    <TableRow>
+
+        <TextView android:text="codigo materia" />
+
+        <EditText
+            android:id="@+id/editCodmateria"
+            android:inputType="text"
+            android:maxLength="6" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="nombre materia" />
+
+        <EditText
+            android:id="@+id/editNommateria"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="unidades valorativas" />
+
+        <EditText
+            android:id="@+id/editUnidadesval"
+            android:inputType="text"
+            android:maxLength="1" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarMateria"
+            android:text="actualizar" />
+    </TableRow>
+
+
+</TableLayout>
