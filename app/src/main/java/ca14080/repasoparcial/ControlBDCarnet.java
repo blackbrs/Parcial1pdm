@@ -44,6 +44,37 @@ public class ControlBDCarnet {
                 db.execSQL("CREATE TABLE alumno (carnet VARCHAR(7) NOT NULL PRIMARY KEY, nombre VARCHAR(30),apellido VARCHAR(30), sexo VARCHAR(1), matganadas INTEGER)");
                 db.execSQL("CREATE TABLE materia (codmateria VARCHAR(6) NOT NULL PRIMARY KEY, nommateria VARCHAR(30), unidadesval CHAR(1))");
                 db.execSQL("CREATE TABLE nota (codmateria VARCHAR(6),carnet VARCHAR(7), ciclo CHAR(5), notafinal REAL)");
+                //**********************************TRIGGERS***********************************************//
+                db.execSQL("CREATE TRIGGER Fk1 " +
+                        "BEFORE INSERT ON nota FOR EACH ROW " +
+                        "BEGIN " +
+                        "SELECT CASE WHEN ((SELECT carnet FROM alumno WHERE carnet = NEW.carnet) IS NULL) THEN RAISE(ABORT, 'No existe alumno') " +
+                        "END; "+
+                        "END;");
+
+                db.execSQL("CREATE TRIGGER Fk2 " +
+                        "BEFORE INSERT ON nota FOR EACH ROW " +
+                        "BEGIN " +
+                        "SELECT CASE WHEN ((SELECT codmateria FROM materia WHERE codmateria = NEW.codmateria) IS NULL) THEN RAISE(ABORT, 'No existe materia') " +
+                        "END; "+
+                        "END;");
+
+                db.execSQL("CREATE TRIGGER nota1 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal>=6 AND old.notafinal<6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas+1 " +
+                        "WHERE alumno.carnet=new.carnet ; " +
+                        "END; ");
+                db.execSQL("CREATE TRIGGER nota2 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal<6 AND old.notafinal>=6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas-1 WHERE alumno.carnet=new.carnet; " +
+                        "END; ");
+
+
+                //******************************************************************************************//
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -321,6 +352,11 @@ public class ControlBDCarnet {
         }else{
             return null;
         }
+    }
+
+    public Cursor consulta4(){
+        Cursor    cursor = db.rawQuery("SELECT  * FROM materia ", null);
+        return cursor;
     }
 
 

@@ -33,7 +33,8 @@
         <activity android:name=".MateriaModificarActivity" />
         <activity android:name=".ConsultaEspecial1Activity" />
         <activity android:name=".ConsultaEspecial2Activity" />
-        <activity android:name=".ConsultaEspecial3Activity"></activity>
+        <activity android:name=".ConsultaEspecial3Activity" />
+        <activity android:name=".ConsultaEspecial4Activity"></activity>
     </application>
 
 </manifest>

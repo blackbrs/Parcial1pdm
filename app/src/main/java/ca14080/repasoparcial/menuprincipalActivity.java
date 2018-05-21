@@ -10,8 +10,8 @@ import android.widget.ListView;
 
 public class menuprincipalActivity extends ListActivity {
 
-    String [] menu={"Alumno","Materia","Notas","Consulta Especial 1","Consulta Especial 2","Consulta Especial 3"};
-    String [] activity={"AlumnoMenuActivity","MateriaMenuActivity","NotaMenuActivity","ConsultaEspecial1Activity","ConsultaEspecial2Activity","ConsultaEspecial3Activity"};
+    String [] menu={"Alumno","Materia","Notas","Consulta Especial 1","Consulta Especial 2","Consulta Especial 3","Consulta Especial 4"};
+    String [] activity={"AlumnoMenuActivity","MateriaMenuActivity","NotaMenuActivity","ConsultaEspecial1Activity","ConsultaEspecial2Activity","ConsultaEspecial3Activity","ConsultaEspecial4Activity"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
