@@ -31,6 +31,9 @@
         <activity android:name=".MateriaEliminarActivity" />
         <activity android:name=".MateriaConsultarActivity" />
         <activity android:name=".MateriaModificarActivity" />
+        <activity android:name=".ConsultaEspecial1Activity" />
+        <activity android:name=".ConsultaEspecial2Activity" />
+        <activity android:name=".ConsultaEspecial3Activity"></activity>
     </application>
 
 </manifest>

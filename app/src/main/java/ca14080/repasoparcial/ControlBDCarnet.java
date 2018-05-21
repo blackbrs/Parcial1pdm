@@ -255,8 +255,6 @@ public class ControlBDCarnet {
             return null;
         }
     }
-
-
     public String actualizar(Nota nota){
 
         if(verificarIntegridad(nota, 2)){
@@ -271,7 +269,66 @@ public class ControlBDCarnet {
 
 
     }
-//********************************************VERIFICADOR DE INTEGRIDAD**************************************************
+//*************************************************CONSULTAS ESPECIALES**************************************************
+    public String consulta1 (String carnet){
+        String[] id = {carnet};
+        String [] consulta = {"count(carnet)"};
+        String tempo;
+        Cursor cursor = db.query("nota",consulta,"carnet=?",id,null,null,null);
+
+        if(cursor.moveToFirst()){
+            tempo=cursor.getString(0);
+            return tempo;
+        }else{
+         return null;
+        }
+    }
+
+    public Alumno consulta2 (String carnet){
+        String[] id = {carnet};
+        String[]campos_cons2 = new String [] {"alumno.carnet","nombre","apellido","sexo", "matganadas","sum(notafinal) total1","max(notafinal) total2","min(notafinal) total3 "};
+        Cursor cursor = db.query("alumno,nota", campos_cons2, "alumno.carnet=nota.carnet and nota.carnet = ?", id, null, null, null);
+
+        if(cursor.moveToFirst()){
+            Alumno alumno = new Alumno();
+            alumno.setCarnet(cursor.getString(0));
+            alumno.setNombre(cursor.getString(1));
+            alumno.setApellido(cursor.getString(2));
+            alumno.setSexo(cursor.getString(3));
+            alumno.setMatganadas(cursor.getInt(4));
+            alumno.setTotal1(cursor.getInt(5));
+            alumno.setTotal2(cursor.getDouble(6));
+            alumno.setTotal3(cursor.getDouble(7));
+            return alumno;
+        }else{
+            return null;
+        }
+    }
+
+    public Materia consulta3(String codmateria){
+
+        String[] id = {codmateria};
+        String[]campos_cons3 = new String [] {"materia.codmateria","materia.nommateria","count(notafinal) total "};
+        Cursor cursor = db.query("nota,materia", campos_cons3, "materia.codmateria=nota.codmateria and nota.codmateria = ?", id, null, null, null);
+        if(cursor.moveToFirst()){
+            Materia materia = new Materia();
+            materia.setCodmateria(cursor.getString(0));
+            materia.setNommateria(cursor.getString(1));
+            materia.setCantidad_materias(cursor.getDouble(2));
+
+
+            return materia;
+        }else{
+            return null;
+        }
+    }
+
+
+
+
+
+
+    //********************************************VERIFICADOR DE INTEGRIDAD**************************************************
 private boolean verificarIntegridad(Object dato, int relacion) throws SQLException{
 
     switch(relacion){

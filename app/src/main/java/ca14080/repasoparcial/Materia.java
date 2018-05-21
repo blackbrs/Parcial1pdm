@@ -9,6 +9,23 @@ public class Materia {
     private String nommateria;
     private String unidadesval;
 
+    public double getCantidad_materias() {
+        return cantidad_materias;
+    }
+
+    public void setCantidad_materias(double cantidad_materias) {
+        this.cantidad_materias = cantidad_materias;
+    }
+
+    private double cantidad_materias;
+
+    public Materia(String codmateria, String nommateria, String unidadesval, double cantidad_materias) {
+        this.codmateria = codmateria;
+        this.nommateria = nommateria;
+        this.unidadesval = unidadesval;
+        this.cantidad_materias = cantidad_materias;
+    }
+
     public Materia() {
     }
 

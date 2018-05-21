@@ -11,6 +11,33 @@ public class Alumno {
     private String apellido;
     private String sexo;
     private Integer matganadas;
+    private double total1;
+    private double total2;
+    private double total3;
+
+    public double getTotal1() {
+        return total1;
+    }
+
+    public void setTotal1(double total1) {
+        this.total1 = total1;
+    }
+
+    public double getTotal2() {
+        return total2;
+    }
+
+    public void setTotal2(double total2) {
+        this.total2 = total2;
+    }
+
+    public double getTotal3() {
+        return total3;
+    }
+
+    public void setTotal3(double total3) {
+        this.total3 = total3;
+    }
 
     public Alumno() {
     }
