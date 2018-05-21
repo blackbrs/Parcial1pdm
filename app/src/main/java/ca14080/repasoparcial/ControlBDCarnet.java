@@ -59,6 +59,7 @@ public class ControlBDCarnet {
                         "END; "+
                         "END;");
 
+
                 db.execSQL("CREATE TRIGGER nota1 " +
                         "AFTER UPDATE OF notafinal ON nota " +
                         "FOR EACH ROW WHEN new.notafinal>=6 AND old.notafinal<6 " +
