@@ -169,6 +169,7 @@ public class ControlBDCarnet {
     }
 
 }
+
     public String eliminar2(Alumno alumno){
         //Eliminacion Restringida
         String regAfectados="filas afectadas= ";
