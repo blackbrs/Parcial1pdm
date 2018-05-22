@@ -106,7 +106,7 @@ public class ControlBDCarnet {
     }
 //********************************************CRUD ESTUDIANTE************************************************************
 
-    public  String insertar (Alumno alumno){
+     public  String insertar (Alumno alumno){
         String regInsertados="Registro Insertado N = ";
         long contador = 0;
 
@@ -169,6 +169,22 @@ public class ControlBDCarnet {
     }
 
 }
+    public String eliminar2(Alumno alumno){
+        //Eliminacion Restringida
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        if (verificarIntegridad(alumno,3)) {
+            regAfectados="Error, existen registros asociados";
+        }
+        else
+        {
+            contador+=db.delete("alumno", "carnet='"+alumno.getCarnet()+"'", null);
+            regAfectados+=contador;
+        }
+
+
+        return regAfectados;
+    }
 
 //********************************************CRUD MATERIA***************************************************************
     public String insertar (Materia materia){
